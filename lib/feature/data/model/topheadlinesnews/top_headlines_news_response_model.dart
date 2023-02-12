@@ -31,24 +31,22 @@ class TopHeadlinesNewsResponseModel extends Equatable {
 
 @JsonSerializable()
 class ItemArticleTopHeadlinesNewsResponseModel extends Equatable {
-  final ItemSourceTopHeadlinesNewsResponseModel source;
   final String author;
-  final String title;
-  final String description;
+  final int id;
+  final String subject;
+  final String summary;
   final String url;
-  final String urlToImage;
-  final String publishedAt;
-  final String content;
+  final String url2image;
+  final String pub_datetime;
 
   ItemArticleTopHeadlinesNewsResponseModel({
-    @required this.source,
     @required this.author,
-    @required this.title,
-    @required this.description,
+    @required this.id,
+    @required this.subject,
+    @required this.summary,
     @required this.url,
-    @required this.urlToImage,
-    @required this.publishedAt,
-    @required this.content,
+    @required this.url2image,
+    @required this.pub_datetime
   });
 
   factory ItemArticleTopHeadlinesNewsResponseModel.fromJson(Map<String, dynamic> json) => _$ItemArticleTopHeadlinesNewsFromJson(json);
@@ -56,11 +54,11 @@ class ItemArticleTopHeadlinesNewsResponseModel extends Equatable {
   Map<String, dynamic> toJson() => _$ItemArticleTopHeadlinesNewsToJson(this);
 
   @override
-  List<Object> get props => [source, author, title, description, url, urlToImage, publishedAt, content];
+  List<Object> get props => [author, id, subject, summary, url, url2image, pub_datetime];
 
   @override
   String toString() {
-    return 'ItemArticleTopHeadlinesNewsResponseModel{source: $source, author: $author, title: $title, description: $description, url: $url, urlToImage: $urlToImage, publishedAt: $publishedAt, content: $content}';
+    return 'ItemArticleTopHeadlinesNewsResponseModel{ author: $author, title: $subject, description: $summary, url: $url, urlToImage: $url2image, publishedAt: $pub_datetime}';
   }
 }
 

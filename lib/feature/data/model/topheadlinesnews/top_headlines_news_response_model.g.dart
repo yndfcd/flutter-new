@@ -30,31 +30,25 @@ Map<String, dynamic> _$TopHeadlinesNewsResponseModelToJson(
 ItemArticleTopHeadlinesNewsResponseModel _$ItemArticleTopHeadlinesNewsFromJson(
     Map<String, dynamic> json) {
   return ItemArticleTopHeadlinesNewsResponseModel(
-    source: json['source'] == null
-        ? null
-        : ItemSourceTopHeadlinesNewsResponseModel.fromJson(
-            json['source'] as Map<String, dynamic>),
+    id: json['id'] as int,
     author: json['author'] as String,
-    title: json['title'] as String,
-    description: json['description'] as String,
+    subject: json['subject'] as String,
+    summary: json['summary'] as String,
     url: json['url'] as String,
-    urlToImage: json['urlToImage'] as String,
-    publishedAt: json['publishedAt'] as String,
-    content: json['content'] as String,
+    url2image: json['urlToImage'] as String,
+    pub_datetime: json['publishedAt'] as String
   );
 }
 
 Map<String, dynamic> _$ItemArticleTopHeadlinesNewsToJson(
         ItemArticleTopHeadlinesNewsResponseModel instance) =>
     <String, dynamic>{
-      'source': instance.source,
       'author': instance.author,
-      'title': instance.title,
-      'description': instance.description,
+      'subject': instance.subject,
+      'summary': instance.summary,
       'url': instance.url,
-      'urlToImage': instance.urlToImage,
-      'publishedAt': instance.publishedAt,
-      'content': instance.content,
+      'url2Image': instance.url2image,
+      'pub_datetime': instance.pub_datetime
     };
 
 ItemSourceTopHeadlinesNewsResponseModel _$ItemSourceTopHeadlinesNewsFromJson(

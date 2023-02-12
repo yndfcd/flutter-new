@@ -16,7 +16,9 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
     @required this.getTopHeadlinesNews,
     @required this.searchTopHeadlinesNews,
   })  : assert(getTopHeadlinesNews != null),
-        assert(searchTopHeadlinesNews != null);
+        assert(searchTopHeadlinesNews != null),super(InitialTopHeadlinesNewsState()){
+    on<LoadTopHeadlinesNewsEvent>(_onLoad);
+  }
 
   @override
   TopHeadlinesNewsState get initialState => InitialTopHeadlinesNewsState();
@@ -34,6 +36,24 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
     }
   }
 
+  _onLoad(
+      LoadTopHeadlinesNewsEvent event,
+      Emitter<TopHeadlinesNewsState> emit,
+      ) async {
+    emit(LoadingTopHeadlinesNewsState());
+
+    var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(category: event.category));
+    response.fold((failure) {
+        if (failure is ServerFailure) {
+          emit(FailureTopHeadlinesNewsState(errorMessage: failure.errorMessage));
+        } else if (failure is ConnectionFailure) {
+          emit(FailureTopHeadlinesNewsState(errorMessage: failure.errorMessage));
+        }
+      },
+          (data) => emit(LoadedTopHeadlinesNewsState(listArticles: data)),
+    );
+  }
+
   Stream<TopHeadlinesNewsState> _mapLoadTopHeadlinesNewsEventToState(LoadTopHeadlinesNewsEvent event) async* {
     yield LoadingTopHeadlinesNewsState();
     var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(category: event.category));
@@ -46,7 +66,7 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
           return FailureTopHeadlinesNewsState(errorMessage: failure.errorMessage);
         }
       },
-      (data) => LoadedTopHeadlinesNewsState(listArticles: data.articles),
+      (data) => LoadedTopHeadlinesNewsState(listArticles: data),
     );
   }
 

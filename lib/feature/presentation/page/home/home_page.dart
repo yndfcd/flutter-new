@@ -147,9 +147,6 @@ class _HomePageState extends State<HomePage> {
                           ),
                           WidgetDateToday(),
                           SizedBox(height: 24.h),
-                          WidgetCategoryNews(
-                              listCategories: listCategories, indexDefaultSelected: indexCategorySelected),
-                          SizedBox(height: 24.h),
                           Expanded(
                             child: Platform.isIOS ? _buildWidgetContentNewsIOS() : _buildWidgetContentNewsAndroid(),
                           ),
@@ -207,7 +204,7 @@ class _HomePageState extends State<HomePage> {
                       (context, index) {
                         var itemArticle = listArticles[index];
                         var dateTimePublishedAt =
-                            DateFormat('yyyy-MM-ddTHH:mm:ssZ').parse(itemArticle.publishedAt, true);
+                            DateFormat('yyyy-MM-ddTHH:mm:ssZ').parse(itemArticle.pub_datetime, true);
                         var strPublishedAt = DateFormat('MMM dd, yyyy HH:mm').format(dateTimePublishedAt);
                         if (index == 0) {
                           return _buildWidgetItemLatestNews(itemArticle, strPublishedAt);
@@ -251,8 +248,11 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.symmetric(horizontal: 48.w),
                 itemBuilder: (context, index) {
                   var itemArticle = listArticles[index];
-                  var dateTimePublishedAt = DateFormat('yyyy-MM-ddTHH:mm:ssZ').parse(itemArticle.publishedAt, true);
-                  var strPublishedAt = DateFormat('MMM dd, yyyy HH:mm').format(dateTimePublishedAt);
+                  var strPublishedAt = '';
+                  if(itemArticle.pub_datetime != null){
+                    var dateTimePublishedAt = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z').parse(itemArticle.pub_datetime, true);
+                    strPublishedAt = DateFormat('MMM dd, yyyy HH:mm').format(dateTimePublishedAt);
+                  }
                   if (index == 0) {
                     return _buildWidgetItemLatestNews(itemArticle, strPublishedAt);
                   } else {
@@ -338,7 +338,7 @@ class _HomePageState extends State<HomePage> {
           borderRadius: BorderRadius.circular(8.0),
           image: DecorationImage(
             image: NetworkImage(
-              itemArticle.urlToImage,
+              itemArticle.url2image ?? '',
             ),
             fit: BoxFit.cover,
           ),
@@ -388,7 +388,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(height: 16.h),
                   Text(
-                    itemArticle.title,
+                    itemArticle.subject,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 42.sp,
@@ -409,13 +409,6 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 28.sp,
-                        ),
-                      ),
-                      Text(
-                        itemArticle.source.name,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 24.sp,
                         ),
                       ),
                     ],

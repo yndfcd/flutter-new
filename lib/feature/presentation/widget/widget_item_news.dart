@@ -34,7 +34,7 @@ class WidgetItemNews extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: CachedNetworkImage(
-                imageUrl: itemArticle.urlToImage,
+                imageUrl: itemArticle.url2image,
                 fit: BoxFit.cover,
                 width: 200.w,
                 height: 200.w,
@@ -69,7 +69,7 @@ class WidgetItemNews extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                      itemArticle.title,
+                      itemArticle.subject,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -101,13 +101,6 @@ class WidgetItemNews extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 28.sp,
-                        ),
-                      ),
-                      Text(
-                        itemArticle.source.name,
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 24.sp,
                         ),
                       ),
                     ],

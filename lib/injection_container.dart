@@ -46,8 +46,8 @@ Future<void> init() async {
    */
   sl.registerLazySingleton(() {
     final dio = Dio();
-    dio.options.baseUrl = FlavorConfig.instance.values.baseUrl;
-    dio.interceptors.add(DioLoggingInterceptor());
+    // dio.options.baseUrl = FlavorConfig.instance.values.baseUrl;
+    // dio.interceptors.add(DioLoggingInterceptor());
     return dio;
   });
   sl.registerLazySingleton(() => ConstantConfig());

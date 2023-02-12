@@ -17,7 +17,7 @@ class NewsRepositoryImpl implements NewsRepository {
   });
 
   @override
-  Future<Either<Failure, TopHeadlinesNewsResponseModel>> getTopHeadlinesNews(String category) async {
+  Future<Either<Failure, List<ItemArticleTopHeadlinesNewsResponseModel>>> getTopHeadlinesNews(String category) async {
     var isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {

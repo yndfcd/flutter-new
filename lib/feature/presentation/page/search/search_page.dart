@@ -141,7 +141,7 @@ class _SearchPageState extends State<SearchPage> {
                                 itemBuilder: (context, index) {
                                   var itemArticle = listArticles[index];
                                   var dateTimePublishedAt =
-                                      DateFormat('yyy-MM-ddTHH:mm:ssZ').parse(itemArticle.publishedAt, true);
+                                      DateFormat('yyy-MM-ddTHH:mm:ssZ').parse(itemArticle.pub_datetime, true);
                                   var strPublishedAt = DateFormat('MMM dd, yyyy HH:mm').format(dateTimePublishedAt);
                                   return Padding(
                                     padding: EdgeInsets.symmetric(vertical: 16.h),

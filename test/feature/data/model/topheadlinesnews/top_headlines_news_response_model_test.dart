@@ -8,14 +8,12 @@ import '../../../../fixture/fixture_reader.dart';
 void main() {
   final tItemSourceTopHeadlinesNewsResponseModel = ItemSourceTopHeadlinesNewsResponseModel(name: 'testName');
   final tItemArticleTopHeadlinesNewsResponseModel = ItemArticleTopHeadlinesNewsResponseModel(
-    source: tItemSourceTopHeadlinesNewsResponseModel,
     author: 'testAuthor',
-    title: 'testTitle',
-    description: 'testDescription',
+    subject: 'testTitle',
+    summary: 'testDescription',
     url: 'testUrl',
-    urlToImage: 'testUrlToImage',
-    publishedAt: 'testPublishedAt',
-    content: 'testContent',
+    url2image: 'testUrlToImage',
+    pub_datetime: 'testPublishedAt'
   );
   final tTopHeadlinesNewsResponseModel = TopHeadlinesNewsResponseModel(
     status: 'testStatus',
@@ -40,14 +38,12 @@ void main() {
       expect(
         tItemArticleTopHeadlinesNewsResponseModel.props,
         [
-          tItemArticleTopHeadlinesNewsResponseModel.source,
           tItemArticleTopHeadlinesNewsResponseModel.author,
-          tItemArticleTopHeadlinesNewsResponseModel.title,
-          tItemArticleTopHeadlinesNewsResponseModel.description,
+          tItemArticleTopHeadlinesNewsResponseModel.subject,
+          tItemArticleTopHeadlinesNewsResponseModel.summary,
           tItemArticleTopHeadlinesNewsResponseModel.url,
-          tItemArticleTopHeadlinesNewsResponseModel.urlToImage,
-          tItemArticleTopHeadlinesNewsResponseModel.publishedAt,
-          tItemArticleTopHeadlinesNewsResponseModel.content,
+          tItemArticleTopHeadlinesNewsResponseModel.url2image,
+          tItemArticleTopHeadlinesNewsResponseModel.pub_datetime,
         ],
       );
       expect(
@@ -67,14 +63,12 @@ void main() {
       );
       expect(
         tItemArticleTopHeadlinesNewsResponseModel.toString(),
-        'ItemArticleTopHeadlinesNewsResponseModel{source: ${tItemArticleTopHeadlinesNewsResponseModel.source}, '
-        'author: ${tItemArticleTopHeadlinesNewsResponseModel.author}, '
-        'title: ${tItemArticleTopHeadlinesNewsResponseModel.title}, '
-        'description: ${tItemArticleTopHeadlinesNewsResponseModel.description}, '
+        'ItemArticleTopHeadlinesNewsResponseModel{author: ${tItemArticleTopHeadlinesNewsResponseModel.author}, '
+        'title: ${tItemArticleTopHeadlinesNewsResponseModel.subject}, '
+        'description: ${tItemArticleTopHeadlinesNewsResponseModel.summary}, '
         'url: ${tItemArticleTopHeadlinesNewsResponseModel.url}, '
-        'urlToImage: ${tItemArticleTopHeadlinesNewsResponseModel.urlToImage}, '
-        'publishedAt: ${tItemArticleTopHeadlinesNewsResponseModel.publishedAt}, '
-        'content: ${tItemArticleTopHeadlinesNewsResponseModel.content}}',
+        'urlToImage: ${tItemArticleTopHeadlinesNewsResponseModel.url2image}, '
+        'publishedAt: ${tItemArticleTopHeadlinesNewsResponseModel.pub_datetime}}',
       );
       expect(
         tTopHeadlinesNewsResponseModel.toString(),
