@@ -6,6 +6,8 @@ import 'package:flutter_news_app/feature/data/datasource/news/news_remote_data_s
 import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
 import 'package:flutter_news_app/feature/domain/repository/news/news_repository.dart';
 import 'package:meta/meta.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:convert';
 
 class NewsRepositoryImpl implements NewsRepository {
   final NewsRemoteDataSource newsRemoteDataSource;
@@ -16,15 +18,22 @@ class NewsRepositoryImpl implements NewsRepository {
     @required this.networkInfo,
   });
 
+  Future<String> getFileData() async {
+    return await rootBundle.loadString('assets/data/news.json');
+  }
+
   @override
-  Future<Either<Failure, List<ItemArticleTopHeadlinesNewsResponseModel>>> getTopHeadlinesNews(String category) async {
+  Future<Either<Failure, List<ItemArticleTopHeadlinesNewsResponseModel>>> getTopHeadlinesNews(int page, String language) async {
     var isConnected = await networkInfo.isConnected;
     if (isConnected) {
       try {
-        var response = await newsRemoteDataSource.getTopHeadlinesNews(category);
+        var response = await newsRemoteDataSource.getTopHeadlinesNews(page, language);
         return Right(response);
       } on DioError catch (error) {
-        return Left(ServerFailure(error.message));
+        var json = jsonDecode(await getFileData());
+        return Right((json as List).map((e) => ItemArticleTopHeadlinesNewsResponseModel.fromJson(e)).toList());
+
+        // return Left(ServerFailure(error.message));
       }
     } else {
       return Left(ConnectionFailure());

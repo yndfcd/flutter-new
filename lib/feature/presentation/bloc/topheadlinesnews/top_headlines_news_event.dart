@@ -6,17 +6,18 @@ abstract class TopHeadlinesNewsEvent extends Equatable {
 }
 
 class LoadTopHeadlinesNewsEvent extends TopHeadlinesNewsEvent {
-  final String category;
+  final int page;
+  final String language;
 
-  LoadTopHeadlinesNewsEvent({@required this.category});
-
-  @override
-  List<Object> get props => [category];
+  LoadTopHeadlinesNewsEvent({@required this.page, @required this.language});
 
   @override
   String toString() {
-    return 'LoadTopHeadlinesNewsEvent{category: $category}';
+    return 'LoadTopHeadlinesNewsEvent{page: $page}';
   }
+
+  @override
+  List<Object> get props => [page, language];
 }
 
 class ChangeCategoryTopHeadlinesNewsEvent extends TopHeadlinesNewsEvent {

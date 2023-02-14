@@ -7,7 +7,7 @@ abstract class NewsRemoteDataSource {
   /// Calls the [baseUrl]/v2/top-headlines?category=:category&country=:country&apiKey=:apiKey endpoint
   ///
   /// Throws a [DioError] for all error codes.
-  Future<List<ItemArticleTopHeadlinesNewsResponseModel>> getTopHeadlinesNews(String category);
+  Future<List<ItemArticleTopHeadlinesNewsResponseModel>> getTopHeadlinesNews(int page, String language);
 
   /// Calls the [baseUrl]/v2/top-headlines?country=:country&apiKey=:apiKey&q=:q
   ///
@@ -25,8 +25,8 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   });
 
   @override
-  Future<List<ItemArticleTopHeadlinesNewsResponseModel>> getTopHeadlinesNews(String category) async {
-    var response = await dio.get('https://whl.xingzhelu.net/news/zh-cn/1');
+  Future<List<ItemArticleTopHeadlinesNewsResponseModel>> getTopHeadlinesNews(int page, String language) async {
+    var response = await dio.get('https://whl.xingzhelu.net/news/$language/$page');
     if (response.statusCode == 200) {
       return (response.data as List).map((e) => ItemArticleTopHeadlinesNewsResponseModel.fromJson(e)).toList();
     } else {

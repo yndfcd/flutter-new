@@ -23,7 +23,6 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
   @override
   TopHeadlinesNewsState get initialState => InitialTopHeadlinesNewsState();
 
-  @override
   Stream<TopHeadlinesNewsState> mapEventToState(
     TopHeadlinesNewsEvent event,
   ) async* {
@@ -36,13 +35,13 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
     }
   }
 
-  _onLoad(
+  void _onLoad(
       LoadTopHeadlinesNewsEvent event,
       Emitter<TopHeadlinesNewsState> emit,
       ) async {
     emit(LoadingTopHeadlinesNewsState());
 
-    var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(category: event.category));
+    var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(page: event.page, language: event.language));
     response.fold((failure) {
         if (failure is ServerFailure) {
           emit(FailureTopHeadlinesNewsState(errorMessage: failure.errorMessage));
@@ -56,7 +55,7 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
 
   Stream<TopHeadlinesNewsState> _mapLoadTopHeadlinesNewsEventToState(LoadTopHeadlinesNewsEvent event) async* {
     yield LoadingTopHeadlinesNewsState();
-    var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(category: event.category));
+    var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(page: event.page));
     yield response.fold(
       // ignore: missing_return
       (failure) {

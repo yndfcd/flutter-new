@@ -13,20 +13,21 @@ class GetTopHeadlinesNews implements UseCase<List<ItemArticleTopHeadlinesNewsRes
 
   @override
   Future<Either<Failure, List<ItemArticleTopHeadlinesNewsResponseModel>>> call(ParamsGetTopHeadlinesNews params) async {
-    return await newsRepository.getTopHeadlinesNews(params.category);
+    return await newsRepository.getTopHeadlinesNews(params.page, params.language);
   }
 }
 
 class ParamsGetTopHeadlinesNews extends Equatable {
-  final String category;
+  final int page;
+  final String language;
 
-  ParamsGetTopHeadlinesNews({@required this.category});
+  ParamsGetTopHeadlinesNews({@required this.page, @required this.language});
 
   @override
-  List<Object> get props => [category];
+  List<Object> get props => [page, language];
 
   @override
   String toString() {
-    return 'ParamsGetTopHeadlinesNews{category: $category}';
+    return 'ParamsGetTopHeadlinesNews{Page: $page, language: $language}';
   }
 }

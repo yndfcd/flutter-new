@@ -35,8 +35,8 @@ ItemArticleTopHeadlinesNewsResponseModel _$ItemArticleTopHeadlinesNewsFromJson(
     subject: json['subject'] as String,
     summary: json['summary'] as String,
     url: json['url'] as String,
-    url2image: json['urlToImage'] as String,
-    pub_datetime: json['publishedAt'] as String
+    url2image: json['url2image'] as String,
+    pub_datetime: json['pub_datetime'] as String
   );
 }
 

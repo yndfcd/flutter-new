@@ -39,6 +39,8 @@ class _HomePageState extends State<HomePage> {
   bool isLoadingCenterIOS = false;
   Completer completerRefresh;
   var indexCategorySelected = 0;
+  var page = 1;
+  var language = Platform.localeName.toLowerCase();
 
   @override
   void initState() {
@@ -46,7 +48,7 @@ class _HomePageState extends State<HomePage> {
       if (Platform.isIOS) {
         isLoadingCenterIOS = true;
         topHeadlinesNewsBloc.add(
-          LoadTopHeadlinesNewsEvent(category: listCategories[indexCategorySelected].title.toLowerCase()),
+          LoadTopHeadlinesNewsEvent(page: page, language: language),
         );
       } else {
         completerRefresh = Completer();
@@ -72,8 +74,8 @@ class _HomePageState extends State<HomePage> {
               indexCategorySelected = state.indexCategorySelected;
               if (Platform.isIOS) {
                 isLoadingCenterIOS = true;
-                var category = listCategories[indexCategorySelected].title.toLowerCase();
-                topHeadlinesNewsBloc.add(LoadTopHeadlinesNewsEvent(category: category));
+                page = 1;
+                topHeadlinesNewsBloc.add(LoadTopHeadlinesNewsEvent(page: page, language: language));
               } else {
                 refreshIndicatorState.currentState.show();
               }
@@ -193,8 +195,9 @@ class _HomePageState extends State<HomePage> {
                 slivers: <Widget>[
                   CupertinoSliverRefreshControl(
                     onRefresh: () {
+                      page = 1;
                       topHeadlinesNewsBloc.add(
-                        LoadTopHeadlinesNewsEvent(category: listCategories[indexCategorySelected].title.toLowerCase()),
+                        LoadTopHeadlinesNewsEvent(page: page, language: language),
                       );
                       return completerRefresh.future;
                     },
@@ -203,9 +206,12 @@ class _HomePageState extends State<HomePage> {
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
                         var itemArticle = listArticles[index];
-                        var dateTimePublishedAt =
-                            DateFormat('yyyy-MM-ddTHH:mm:ssZ').parse(itemArticle.pub_datetime, true);
-                        var strPublishedAt = DateFormat('MMM dd, yyyy HH:mm').format(dateTimePublishedAt);
+                        var strPublishedAt = '';
+                        if(itemArticle.pub_datetime != null){
+                          var dateTimePublishedAt = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z').parse(itemArticle.pub_datetime, true);
+                          strPublishedAt = DateFormat('MMM dd, yyyy HH:mm').format(dateTimePublishedAt);
+                        }
+
                         if (index == 0) {
                           return _buildWidgetItemLatestNews(itemArticle, strPublishedAt);
                         } else {
@@ -239,8 +245,9 @@ class _HomePageState extends State<HomePage> {
             RefreshIndicator(
               key: refreshIndicatorState,
               onRefresh: () {
+                var page = 1;
                 topHeadlinesNewsBloc.add(
-                  LoadTopHeadlinesNewsEvent(category: listCategories[indexCategorySelected].title.toLowerCase()),
+                  LoadTopHeadlinesNewsEvent(page: page, language: language),
                 );
                 return completerRefresh.future;
               },
@@ -279,8 +286,9 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               if (Platform.isIOS) {
                 isLoadingCenterIOS = true;
+                page = 1;
                 topHeadlinesNewsBloc.add(
-                  LoadTopHeadlinesNewsEvent(category: listCategories[indexCategorySelected].title.toLowerCase()),
+                  LoadTopHeadlinesNewsEvent(page: page, language: language),
                 );
               } else {
                 refreshIndicatorState.currentState.show();
