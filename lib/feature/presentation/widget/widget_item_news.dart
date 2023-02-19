@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
+import 'package:flutter_news_app/feature/presentation/page/home/detail_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class WidgetItemNews extends StatelessWidget {
   final ItemArticleTopHeadlinesNewsResponseModel itemArticle;
@@ -13,18 +13,18 @@ class WidgetItemNews extends StatelessWidget {
     @required this.strPublishedAt,
   });
 
+  void _gotoDetailPage(BuildContext context){
+    Navigator.push(context,
+      MaterialPageRoute(builder: (context) => DetailPage(itemArticle: itemArticle,)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
     return GestureDetector(
       onTap: () async {
-        if (await canLaunch(itemArticle.url)) {
-          await launch(itemArticle.url);
-        } else {
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text('Couldn\'t open detail news'),
-          ));
-        }
+        _gotoDetailPage(context);
       },
       child: SizedBox(
         height: 200.w,
@@ -94,13 +94,6 @@ class WidgetItemNews extends StatelessWidget {
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 24.sp,
-                        ),
-                      ),
-                      Text(
-                        ' | ',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 28.sp,
                         ),
                       ),
                     ],

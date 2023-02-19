@@ -18,6 +18,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'detail_page.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -41,9 +43,10 @@ class _HomePageState extends State<HomePage> {
   var indexCategorySelected = 0;
   var page = 1;
   var language = Platform.localeName.toLowerCase();
-
+  ScrollController loadMoreController;
   @override
   void initState() {
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (Platform.isIOS) {
         isLoadingCenterIOS = true;
@@ -56,6 +59,18 @@ class _HomePageState extends State<HomePage> {
       }
     });
     super.initState();
+    loadMoreController = ScrollController()..addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    print(loadMoreController.position.extentAfter);
+    if (loadMoreController.position.extentAfter < 500) {
+      page += 1;
+      if(topHeadlinesNewsBloc.state is LoadedTopHeadlinesNewsState) {
+        var data = (topHeadlinesNewsBloc.state as LoadedTopHeadlinesNewsState).listArticles;
+        topHeadlinesNewsBloc.add(LoadTopHeadlinesNewsEvent(page: page, language: language, existingData: data));
+      }
+    }
   }
 
   @override
@@ -108,24 +123,9 @@ class _HomePageState extends State<HomePage> {
                               children: <Widget>[
                                 Expanded(
                                   child: Text(
-                                    'Daily News',
+                                    'News Post',
                                     style: TextStyle(
                                       fontSize: 48.sp,
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => SearchPage()),
-                                    );
-                                  },
-                                  child: Hero(
-                                    tag: 'iconSearch',
-                                    child: Icon(
-                                      Icons.search,
-                                      size: 64.w,
                                     ),
                                   ),
                                 ),
@@ -267,6 +267,7 @@ class _HomePageState extends State<HomePage> {
                   }
                 },
                 itemCount: listArticles.length,
+                controller: loadMoreController,
               ),
             ),
             listArticles.isEmpty && state is FailureTopHeadlinesNewsState ? _buildWidgetFailureLoadData() : Container(),
@@ -294,6 +295,7 @@ class _HomePageState extends State<HomePage> {
                 refreshIndicatorState.currentState.show();
               }
             },
+            color: Colors.grey[700],
             child: Text(
               'Try Again'.toUpperCase(),
               style: TextStyle(
@@ -301,7 +303,6 @@ class _HomePageState extends State<HomePage> {
                 fontSize: 36.sp,
               ),
             ),
-            color: Colors.grey[700],
           ),
         ],
       ),
@@ -325,19 +326,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _gotoDetailPage(BuildContext context, ItemArticleTopHeadlinesNewsResponseModel itemArticle){
+    Navigator.push(context,
+      MaterialPageRoute(builder: (context) => DetailPage(itemArticle: itemArticle,)),
+    );
+  }
+
   Widget _buildWidgetItemLatestNews(
     ItemArticleTopHeadlinesNewsResponseModel itemArticle,
     String strPublishedAt,
   ) {
     return GestureDetector(
       onTap: () async {
-        if (await canLaunch(itemArticle.url)) {
-          await launch(itemArticle.url);
-        } else {
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text('Couldn\'t open detail news'),
-          ));
-        }
+        _gotoDetailPage(context, itemArticle);
       },
       child: Container(
         width: double.infinity,
@@ -410,13 +411,6 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(
                           color: Colors.grey,
                           fontSize: 24.sp,
-                        ),
-                      ),
-                      Text(
-                        ' | ',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 28.sp,
                         ),
                       ),
                     ],

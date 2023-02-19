@@ -26,7 +26,7 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
 
   @override
   Future<List<ItemArticleTopHeadlinesNewsResponseModel>> getTopHeadlinesNews(int page, String language) async {
-    var response = await dio.get('https://whl.xingzhelu.net/news/$language/$page');
+    var response = await dio.get('https://whl.xingzhelu.net/api/news/zh-cn/$page');
     if (response.statusCode == 200) {
       return (response.data as List).map((e) => ItemArticleTopHeadlinesNewsResponseModel.fromJson(e)).toList();
     } else {

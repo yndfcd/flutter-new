@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_news_app/core/error/failure.dart';
+import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
 import 'package:flutter_news_app/feature/domain/usecase/gettopheadlinesnews/get_top_headlines_news.dart';
 import 'package:flutter_news_app/feature/domain/usecase/searchtopheadlinesnews/search_top_headlines_news.dart';
 import 'package:meta/meta.dart';
@@ -39,7 +40,7 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
       LoadTopHeadlinesNewsEvent event,
       Emitter<TopHeadlinesNewsState> emit,
       ) async {
-    emit(LoadingTopHeadlinesNewsState());
+    if(event.page == 1) emit(LoadingTopHeadlinesNewsState());
 
     var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(page: event.page, language: event.language));
     response.fold((failure) {
@@ -49,7 +50,14 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
           emit(FailureTopHeadlinesNewsState(errorMessage: failure.errorMessage));
         }
       },
-          (data) => emit(LoadedTopHeadlinesNewsState(listArticles: data)),
+          (data) {
+            var listArticles = <ItemArticleTopHeadlinesNewsResponseModel>[];
+            if(event.existingData != null) {
+              listArticles.addAll(event.existingData);
+            }
+            listArticles.addAll(data);
+            emit(LoadedTopHeadlinesNewsState(listArticles: listArticles));
+        }
     );
   }
 
