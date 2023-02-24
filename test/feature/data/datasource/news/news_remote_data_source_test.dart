@@ -67,7 +67,7 @@ void main() {
         setUpMockDioSuccess();
 
         // act
-        await newsRemoteDataSource.getTopHeadlinesNews('all');
+        await newsRemoteDataSource.getTopHeadlinesNews(1, 'all');
 
         // assert
         verify(
@@ -89,7 +89,7 @@ void main() {
         setUpMockDioSuccess();
 
         // act
-        await newsRemoteDataSource.getTopHeadlinesNews(tCategory);
+        await newsRemoteDataSource.getTopHeadlinesNews(1, tCategory);
 
         // assert
         verify(
@@ -113,7 +113,7 @@ void main() {
         setUpMockDioSuccess();
 
         // act
-        final result = await newsRemoteDataSource.getTopHeadlinesNews(tCategory);
+        final result = await newsRemoteDataSource.getTopHeadlinesNews(1, tCategory);
 
         // assert
         expect(result, tTopHeadlinesNewsResponseModel);
@@ -131,7 +131,7 @@ void main() {
         when(mockDio.get(any, queryParameters: anyNamed('queryParameters'))).thenAnswer((_) async => response);
 
         // act
-        final call = newsRemoteDataSource.getTopHeadlinesNews(tCategory);
+        final call = newsRemoteDataSource.getTopHeadlinesNews(1, tCategory);
 
         // assert
         expect(() => call, throwsA(TypeMatcher<DioError>()));

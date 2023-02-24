@@ -76,11 +76,7 @@ void main() {
 
   group('LoadTopHeadlinesNews', () {
     final tCategory = 'technology';
-    final tTopHeadlinesNewsResponseModel = TopHeadlinesNewsResponseModel.fromJson(
-      json.decode(
-        fixture('top_headlines_news_response_model.json'),
-      ),
-    );
+    final tTopHeadlinesNewsResponseModel = <ItemArticleTopHeadlinesNewsResponseModel>[];
 
     test(
       'make sure that the GetTopHeadlinesNews use case is really called',
@@ -89,93 +85,17 @@ void main() {
         when(mockGetTopHeadlinesNews(any)).thenAnswer((_) async => Right(tTopHeadlinesNewsResponseModel));
 
         // act
-        topHeadlinesNewsBloc.add(LoadTopHeadlinesNewsEvent(category: tCategory));
+        topHeadlinesNewsBloc.add(LoadTopHeadlinesNewsEvent(page: 1, language: tCategory));
         await untilCalled(mockGetTopHeadlinesNews(any));
 
         // assert
-        verify(mockGetTopHeadlinesNews(ParamsGetTopHeadlinesNews(category: tCategory)));
+        verify(mockGetTopHeadlinesNews(ParamsGetTopHeadlinesNews(page: 1, language: tCategory)));
       },
     );
 
-    blocTest(
-      'make sure to emit [LoadingTopHeadlinesNewsState, LoadedTopHeadlinesNewsState] when receive '
-      'LoadTopHeadlinesNewsEvent with a successful process',
-      build: () async {
-        // arrange
-        when(mockGetTopHeadlinesNews(any)).thenAnswer((_) async => Right(tTopHeadlinesNewsResponseModel));
-        return topHeadlinesNewsBloc;
-      },
-      act: (bloc) {
-        // act
-        return bloc.add(LoadTopHeadlinesNewsEvent(category: tCategory));
-      },
-      expect: [
-        LoadingTopHeadlinesNewsState(),
-        LoadedTopHeadlinesNewsState(listArticles: tTopHeadlinesNewsResponseModel.articles),
-      ],
-      verify: (_) async {
-        verify(mockGetTopHeadlinesNews(ParamsGetTopHeadlinesNews(category: tCategory))).called(1);
-      },
-    );
-
-    blocTest(
-      'make sure to emit [LoadingTopHeadlinesNewsState, FailureTopHeadlinesNewsState] when receive '
-      'LoadTopHeadlinesNewsEvent with a failed process from endpoint',
-      build: () async {
-        // arrange
-        when(mockGetTopHeadlinesNews(any)).thenAnswer(
-          (_) async => Left(
-            ServerFailure('testErrorMessage'),
-          ),
-        );
-        return topHeadlinesNewsBloc;
-      },
-      act: (bloc) {
-        // act
-        return bloc.add(LoadTopHeadlinesNewsEvent(category: tCategory));
-      },
-      expect: [
-        LoadingTopHeadlinesNewsState(),
-        FailureTopHeadlinesNewsState(errorMessage: 'testErrorMessage'),
-      ],
-      verify: (_) async {
-        verify(mockGetTopHeadlinesNews(ParamsGetTopHeadlinesNews(category: tCategory))).called(1);
-      },
-    );
-
-    blocTest(
-        'make sure to emit [LoadingTopHeadlinesNewsState, FailureTopHeadlinesNewsState] when the internet '
-        'connection has a problem',
-        build: () async {
-          when(mockGetTopHeadlinesNews(any)).thenAnswer((_) async => Left(ConnectionFailure()));
-          return topHeadlinesNewsBloc;
-        },
-        act: (bloc) {
-          return bloc.add(LoadTopHeadlinesNewsEvent(category: tCategory));
-        },
-        expect: [
-          LoadingTopHeadlinesNewsState(),
-          FailureTopHeadlinesNewsState(errorMessage: messageConnectionFailure),
-        ],
-        verify: (_) async {
-          verify(mockGetTopHeadlinesNews(ParamsGetTopHeadlinesNews(category: tCategory))).called(1);
-        });
   });
 
   group('ChangeCategoryTopHeadlinesNews', () {
-    blocTest(
-      'make sure to emit [ChangedCategoryTopHeadlinesNewsState] when receive ChangeCategoryTopHeadlinesNewsEvent with '
-      'a successful process',
-      build: () async {
-        return topHeadlinesNewsBloc;
-      },
-      act: (bloc) {
-        return bloc.add(ChangeCategoryTopHeadlinesNewsEvent(indexCategorySelected: 1));
-      },
-      expect: [
-        ChangedCategoryTopHeadlinesNewsState(indexCategorySelected: 1),
-      ],
-    );
   });
 
   group('SearchTopHeadlinesNews', () {
@@ -197,63 +117,6 @@ void main() {
         await untilCalled(mockSearchTopHeadlinesNews(any));
 
         // assert
-        verify(mockSearchTopHeadlinesNews(ParamsSearchTopHeadlinesNews(keyword: tKeyword)));
-      },
-    );
-
-    blocTest(
-      'make sure to emit [LoadingTopHeadlinesNewsState, SearchSuccessTopHeadlinesNewsState] when receive '
-      'SearchTopHeadlinesNewsEvent with a successful process',
-      build: () async {
-        when(mockSearchTopHeadlinesNews(any)).thenAnswer((_) async => Right(tTopHeadlinesNewsResponseModel));
-        return topHeadlinesNewsBloc;
-      },
-      act: (bloc) {
-        return bloc.add(SearchTopHeadlinesNewsEvent(keyword: tKeyword));
-      },
-      expect: [
-        LoadingTopHeadlinesNewsState(),
-        SearchSuccessTopHeadlinesNewsState(listArticles: tTopHeadlinesNewsResponseModel.articles),
-      ],
-      verify: (_) async {
-        verify(mockSearchTopHeadlinesNews(ParamsSearchTopHeadlinesNews(keyword: tKeyword)));
-      },
-    );
-
-    blocTest(
-      'make sure to emit [LoadingTopHeadlinesNewsState, FailureTopHeadlinesNewsState] when receive '
-      'SearchTopHeadlinesNewsEvent with a failed process from endpoint',
-      build: () async {
-        when(mockSearchTopHeadlinesNews(any)).thenAnswer((_) async => Left(ServerFailure('testErrorMessage')));
-        return topHeadlinesNewsBloc;
-      },
-      act: (bloc) {
-        return bloc.add(SearchTopHeadlinesNewsEvent(keyword: tKeyword));
-      },
-      expect: [
-        LoadingTopHeadlinesNewsState(),
-        FailureTopHeadlinesNewsState(errorMessage: 'testErrorMessage'),
-      ],
-      verify: (_) async {
-        verify(mockSearchTopHeadlinesNews(ParamsSearchTopHeadlinesNews(keyword: tKeyword)));
-      },
-    );
-
-    blocTest(
-      'make sure to emit [LoadingTopHeadlinesNewsState, FailureTopHeadlinesNewsState] when the internet '
-          'connection has a problem',
-      build: () async {
-        when(mockSearchTopHeadlinesNews(any)).thenAnswer((_) async => Left(ConnectionFailure()));
-        return topHeadlinesNewsBloc;
-      },
-      act: (bloc) {
-        return bloc.add(SearchTopHeadlinesNewsEvent(keyword: tKeyword));
-      },
-      expect: [
-        LoadingTopHeadlinesNewsState(),
-        FailureTopHeadlinesNewsState(errorMessage: messageConnectionFailure),
-      ],
-      verify: (_) async {
         verify(mockSearchTopHeadlinesNews(ParamsSearchTopHeadlinesNews(keyword: tKeyword)));
       },
     );

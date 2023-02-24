@@ -26,20 +26,16 @@ void main() {
     'endpoint',
     () async {
       // arrange
-      final tTopHeadlinesNewsResponseModel = TopHeadlinesNewsResponseModel.fromJson(
-        json.decode(
-          fixture('top_headlines_news_response_model.json'),
-        ),
-      );
-      when(mockNewsRepository.getTopHeadlinesNews(tCategory))
+      final tTopHeadlinesNewsResponseModel = <ItemArticleTopHeadlinesNewsResponseModel>[];
+      when(mockNewsRepository.getTopHeadlinesNews(1, tCategory))
           .thenAnswer((_) async => Right(tTopHeadlinesNewsResponseModel));
 
       // act
-      final result = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(category: tCategory));
+      final result = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(language: tCategory, page: 1));
 
       // assert
       expect(result, Right(tTopHeadlinesNewsResponseModel));
-      verify(mockNewsRepository.getTopHeadlinesNews(tCategory));
+      verify(mockNewsRepository.getTopHeadlinesNews(1, tCategory));
       verifyNoMoreInteractions(mockNewsRepository);
     },
   );
@@ -48,7 +44,7 @@ void main() {
     'make sure the output of the toString function',
     () async {
       // arrange
-      final tParamsGetTopHeadlinesNews = ParamsGetTopHeadlinesNews(category: tCategory);
+      final tParamsGetTopHeadlinesNews = ParamsGetTopHeadlinesNews(language: tCategory, page: 1);
 
       // assert
       expect(

@@ -73,13 +73,9 @@ void main() {
 
   group('getTopHeadlinesNews', () {
     final tCategory = 'technology';
-    final tTopHeadlinesNewsResponseModel = TopHeadlinesNewsResponseModel.fromJson(
-      json.decode(
-        fixture('top_headlines_news_response_model.json'),
-      ),
-    );
+    final tTopHeadlinesNewsResponseModel = <ItemArticleTopHeadlinesNewsResponseModel>[];
 
-    testNetworkConnected(() => newsRepositoryImpl.getTopHeadlinesNews(tCategory));
+    testNetworkConnected(() => newsRepositoryImpl.getTopHeadlinesNews(1, tCategory));
 
     test(
       'make sure to return the value of the TopHeadlinesNewsResponseModel object when '
@@ -87,14 +83,14 @@ void main() {
       () async {
         // arrange
         setUpMockNetworkConnected();
-        when(mockNewsRemoteDataSource.getTopHeadlinesNews(tCategory))
+        when(mockNewsRemoteDataSource.getTopHeadlinesNews(1, tCategory))
             .thenAnswer((_) async => tTopHeadlinesNewsResponseModel);
 
         // act
-        final result = await newsRepositoryImpl.getTopHeadlinesNews(tCategory);
+        final result = await newsRepositoryImpl.getTopHeadlinesNews(1, tCategory);
 
         // assert
-        verify(mockNewsRemoteDataSource.getTopHeadlinesNews(tCategory));
+        verify(mockNewsRemoteDataSource.getTopHeadlinesNews(1, tCategory));
         expect(result, Right(tTopHeadlinesNewsResponseModel));
       },
     );
@@ -105,18 +101,18 @@ void main() {
       () async {
         // arrange
         setUpMockNetworkConnected();
-        when(mockNewsRemoteDataSource.getTopHeadlinesNews(tCategory)).thenThrow(DioError(error: 'testError'));
+        when(mockNewsRemoteDataSource.getTopHeadlinesNews(1, tCategory)).thenThrow(DioError(error: 'testError'));
 
         // act
-        final result = await newsRepositoryImpl.getTopHeadlinesNews(tCategory);
+        final result = await newsRepositoryImpl.getTopHeadlinesNews(1, tCategory);
 
         // assert
-        verify(mockNewsRemoteDataSource.getTopHeadlinesNews(tCategory));
+        verify(mockNewsRemoteDataSource.getTopHeadlinesNews(1, tCategory));
         expect(result, Left(ServerFailure('testError')));
       },
     );
 
-    testNetworkDisconnected(() => newsRepositoryImpl.getTopHeadlinesNews(tCategory));
+    testNetworkDisconnected(() => newsRepositoryImpl.getTopHeadlinesNews(1, tCategory));
   });
 
   group('searchTopHeadlinesNews', () {

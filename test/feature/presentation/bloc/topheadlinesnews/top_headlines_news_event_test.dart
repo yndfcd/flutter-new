@@ -9,7 +9,7 @@ void main() {
       'make sure the props value is [category]',
       () async {
         // assert
-        expect(LoadTopHeadlinesNewsEvent(category: tCategory).props, [tCategory]);
+        expect(LoadTopHeadlinesNewsEvent(page: 1, language: tCategory).props, [tCategory]);
       },
     );
 
@@ -18,7 +18,7 @@ void main() {
       () async {
         // assert
         expect(
-          LoadTopHeadlinesNewsEvent(category: tCategory).toString(),
+          LoadTopHeadlinesNewsEvent(page: 1, language: tCategory).toString(),
           'LoadTopHeadlinesNewsEvent{category: $tCategory}',
         );
       },
