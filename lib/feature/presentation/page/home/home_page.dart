@@ -17,6 +17,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../generated/l10n.dart';
 import 'detail_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -122,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                               children: <Widget>[
                                 Expanded(
                                   child: Text(
-                                    'News Post',
+                                    S.of(context).appName,
                                     style: TextStyle(
                                       fontSize: 48.sp,
                                     ),
@@ -207,7 +208,7 @@ class _HomePageState extends State<HomePage> {
                         var itemArticle = listArticles[index];
                         var strPublishedAt = '';
                         if(itemArticle.pub_datetime != null){
-                          var dateTimePublishedAt = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z').parse(itemArticle.pub_datetime, true);
+                          var dateTimePublishedAt = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en_US').parse(itemArticle.pub_datetime, true);
                           strPublishedAt = DateFormat('MMM dd, yyyy HH:mm').format(dateTimePublishedAt);
                         }
 
@@ -256,7 +257,7 @@ class _HomePageState extends State<HomePage> {
                   var itemArticle = listArticles[index];
                   var strPublishedAt = '';
                   if(itemArticle.pub_datetime != null){
-                    var dateTimePublishedAt = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z').parse(itemArticle.pub_datetime, true);
+                    var dateTimePublishedAt = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en_US').parse(itemArticle.pub_datetime, true);
                     strPublishedAt = DateFormat('MMM dd, yyyy HH:mm').format(dateTimePublishedAt);
                   }
                   if (index == 0) {

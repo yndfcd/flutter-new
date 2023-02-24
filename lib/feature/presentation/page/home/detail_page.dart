@@ -16,7 +16,7 @@ class DetailPage extends StatelessWidget{
     ScreenUtil.init(context);
     var strPublishedAt = '';
     if(itemArticle.pub_datetime != null){
-      var dateTimePublishedAt = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z').parse(itemArticle.pub_datetime, true);
+      var dateTimePublishedAt = DateFormat('EEE, dd MMM yyyy HH:mm:ss Z', 'en_US').parse(itemArticle.pub_datetime, true);
       strPublishedAt = DateFormat('MMM dd, yyyy HH:mm').format(dateTimePublishedAt);
     }
     return Scaffold(

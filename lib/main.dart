@@ -4,8 +4,12 @@ import 'package:flutter_news_app/config/base_url_config.dart';
 import 'package:flutter_news_app/config/flavor_config.dart';
 import 'package:flutter_news_app/injection_container.dart' as di;
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
+
+import 'generated/l10n.dart';
 
 void main() async {
+  Intl.defaultLocale = 'pt_BR';
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('settings');
