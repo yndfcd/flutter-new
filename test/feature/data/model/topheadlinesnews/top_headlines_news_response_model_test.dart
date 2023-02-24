@@ -13,7 +13,8 @@ void main() {
     summary: 'testDescription',
     url: 'testUrl',
     url2image: 'testUrlToImage',
-    pub_datetime: 'testPublishedAt'
+    pub_datetime: 'testPublishedAt',
+    id: 1
   );
   final tTopHeadlinesNewsResponseModel = TopHeadlinesNewsResponseModel(
     status: 'testStatus',
