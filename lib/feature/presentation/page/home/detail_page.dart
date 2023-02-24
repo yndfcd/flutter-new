@@ -22,45 +22,47 @@ class DetailPage extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey,
-        title: Text(itemArticle.subject,
+        title: Text(itemArticle.subject.trim(),
           style: TextStyle(fontSize: 42.sp),)
       ),
-      body: Container(
-          width: double.infinity,
-          color: Color(0xFFEFF5F5),
-          padding: EdgeInsets.all(48.h),
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 48.h),
-                child: Text(itemArticle.subject),
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: CachedNetworkImage(imageUrl: itemArticle.url2image ?? ''),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: SingleChildScrollView(
+          child: Container(
+              width: double.infinity,
+              color: Color(0xFFEFF5F5),
+              padding: EdgeInsets.all(48.h),
+              child: Column(
                 children: [
-                  Text(itemArticle.author ?? 'News Post'),
-                  Text(strPublishedAt),
-                ],
-              ),
-              Container(
-                  margin: EdgeInsets.symmetric(vertical: 48.h),
-                  child: Text(itemArticle.summary)
-              ),
-              InkWell(
-                  child: Text(itemArticle.url,
-                      style: TextStyle(
-                          color: Colors.blue,
-                          decoration: TextDecoration.underline
-                      )
+                  Container(
+                    margin: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 48.h),
+                    child: Text(itemArticle.subject),
                   ),
-                  onTap: () => launch(itemArticle.url)
-              ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: CachedNetworkImage(imageUrl: itemArticle.url2image ?? ''),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(itemArticle.author ?? 'News Post'),
+                      Text(strPublishedAt),
+                    ],
+                  ),
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: 48.h),
+                      child: Text(itemArticle.summary)
+                  ),
+                  InkWell(
+                      child: Text(itemArticle.url,
+                          style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline
+                          )
+                      ),
+                      onTap: () => launch(itemArticle.url)
+                  ),
 
-            ],
+                ],
+              )
           )
       )
     );

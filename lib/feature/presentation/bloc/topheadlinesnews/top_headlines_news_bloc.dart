@@ -42,7 +42,6 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
       ) async {
     if(event.page == 1) emit(LoadingTopHeadlinesNewsState());
 
-    print('load page ${event.page}');
     var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(page: event.page, language: event.language));
     response.fold((failure) {
         if (failure is ServerFailure) {
@@ -52,21 +51,20 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
         }
       },
           (data) {
-            print('loaded ${event.page}');
+            print('page: ${event.page}, ${data.length} items fetched');
             var listArticles = <ItemArticleTopHeadlinesNewsResponseModel>[];
             if(event.existingData != null) {
               listArticles.addAll(event.existingData);
             }
             listArticles.addAll(data);
-            print('emit ${event.page}');
-            emit(LoadedTopHeadlinesNewsState(listArticles: listArticles, page: event.page));
+            emit(LoadedTopHeadlinesNewsState(listArticles: listArticles, page: event.page, hasMore: data.isNotEmpty));
         }
     );
   }
 
   Stream<TopHeadlinesNewsState> _mapLoadTopHeadlinesNewsEventToState(LoadTopHeadlinesNewsEvent event) async* {
     yield LoadingTopHeadlinesNewsState();
-    var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(page: event.page));
+    var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(page: event.page, language: event.language));
     yield response.fold(
       // ignore: missing_return
       (failure) {

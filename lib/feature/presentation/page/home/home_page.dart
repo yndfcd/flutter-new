@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_news_app/feature/data/model/categorynews/category_news_model.dart';
 import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
 import 'package:flutter_news_app/feature/presentation/bloc/topheadlinesnews/bloc.dart';
-import 'package:flutter_news_app/feature/presentation/page/search/search_page.dart';
 import 'package:flutter_news_app/feature/presentation/page/settings/settings_page.dart';
 import 'package:flutter_news_app/feature/presentation/widget/widget_failure_message.dart';
 import 'package:flutter_news_app/feature/presentation/widget/widget_item_news.dart';
@@ -65,8 +64,7 @@ class _HomePageState extends State<HomePage> {
   void _scrollListener() {
     if(topHeadlinesNewsBloc.state is LoadedTopHeadlinesNewsState) {
       var state = topHeadlinesNewsBloc.state as LoadedTopHeadlinesNewsState;
-      print("page = $page, state.page = ${state.page}");
-      if (loadMoreController.position.extentAfter < 500 && page == state.page) {
+      if (loadMoreController.position.extentAfter < 500 && page == state.page && state.hasMore) {
         page += 1;
         var data = (topHeadlinesNewsBloc.state as LoadedTopHeadlinesNewsState).listArticles;
         topHeadlinesNewsBloc.add(LoadTopHeadlinesNewsEvent(page: page, language: language, existingData: data));
@@ -246,7 +244,7 @@ class _HomePageState extends State<HomePage> {
             RefreshIndicator(
               key: refreshIndicatorState,
               onRefresh: () {
-                var page = 1;
+                page = 1;
                 topHeadlinesNewsBloc.add(
                   LoadTopHeadlinesNewsEvent(page: page, language: language),
                 );
@@ -398,6 +396,7 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: 16.h),
                   Text(
                     itemArticle.subject,
+                    maxLines: 2,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 42.sp,

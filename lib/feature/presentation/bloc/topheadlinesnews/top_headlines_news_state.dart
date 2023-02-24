@@ -15,11 +15,12 @@ class LoadingTopHeadlinesNewsState extends TopHeadlinesNewsState {}
 class LoadedTopHeadlinesNewsState extends TopHeadlinesNewsState {
   final List<ItemArticleTopHeadlinesNewsResponseModel> listArticles;
   final int page;
+  final bool hasMore;
 
-  LoadedTopHeadlinesNewsState({this.listArticles, this.page});
+  LoadedTopHeadlinesNewsState({this.listArticles, this.page, this.hasMore = true});
 
   @override
-  List<Object> get props => [listArticles];
+  List<Object> get props => [listArticles, page];
 
   @override
   String toString() {
