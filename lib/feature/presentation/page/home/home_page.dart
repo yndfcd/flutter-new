@@ -63,10 +63,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _scrollListener() {
-    print(loadMoreController.position.extentAfter);
-    if (loadMoreController.position.extentAfter < 500) {
-      page += 1;
-      if(topHeadlinesNewsBloc.state is LoadedTopHeadlinesNewsState) {
+    if(topHeadlinesNewsBloc.state is LoadedTopHeadlinesNewsState) {
+      var state = topHeadlinesNewsBloc.state as LoadedTopHeadlinesNewsState;
+      print("page = $page, state.page = ${state.page}");
+      if (loadMoreController.position.extentAfter < 500 && page == state.page) {
+        page += 1;
         var data = (topHeadlinesNewsBloc.state as LoadedTopHeadlinesNewsState).listArticles;
         topHeadlinesNewsBloc.add(LoadTopHeadlinesNewsEvent(page: page, language: language, existingData: data));
       }
@@ -283,7 +284,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           WidgetFailureMessage(),
-          RaisedButton(
+          ElevatedButton(
             onPressed: () {
               if (Platform.isIOS) {
                 isLoadingCenterIOS = true;
@@ -295,7 +296,6 @@ class _HomePageState extends State<HomePage> {
                 refreshIndicatorState.currentState.show();
               }
             },
-            color: Colors.grey[700],
             child: Text(
               'Try Again'.toUpperCase(),
               style: TextStyle(

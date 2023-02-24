@@ -1,9 +1,7 @@
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_news_app/config/constant_config.dart';
-import 'package:flutter_news_app/config/flavor_config.dart';
 import 'package:flutter_news_app/core/network/network_info.dart';
-import 'package:flutter_news_app/core/util/dio_logging_interceptor.dart';
 import 'package:flutter_news_app/feature/data/datasource/news/news_remote_data_source.dart';
 import 'package:flutter_news_app/feature/data/repository/news/news_repository_impl.dart';
 import 'package:flutter_news_app/feature/domain/repository/news/news_repository.dart';

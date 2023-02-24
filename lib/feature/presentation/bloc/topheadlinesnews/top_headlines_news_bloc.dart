@@ -42,6 +42,7 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
       ) async {
     if(event.page == 1) emit(LoadingTopHeadlinesNewsState());
 
+    print('load page ${event.page}');
     var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(page: event.page, language: event.language));
     response.fold((failure) {
         if (failure is ServerFailure) {
@@ -51,12 +52,14 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
         }
       },
           (data) {
+            print('loaded ${event.page}');
             var listArticles = <ItemArticleTopHeadlinesNewsResponseModel>[];
             if(event.existingData != null) {
               listArticles.addAll(event.existingData);
             }
             listArticles.addAll(data);
-            emit(LoadedTopHeadlinesNewsState(listArticles: listArticles));
+            print('emit ${event.page}');
+            emit(LoadedTopHeadlinesNewsState(listArticles: listArticles, page: event.page));
         }
     );
   }
@@ -73,7 +76,7 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
           return FailureTopHeadlinesNewsState(errorMessage: failure.errorMessage);
         }
       },
-      (data) => LoadedTopHeadlinesNewsState(listArticles: data),
+      (data) => LoadedTopHeadlinesNewsState(listArticles: data, page: event.page),
     );
   }
 

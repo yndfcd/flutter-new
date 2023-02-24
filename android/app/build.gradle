@@ -57,22 +57,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            resValue "string", "app_name", "News Post"
+        }
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
-        }
-    }
-
-    flavorDimensions "production, development"
-    productFlavors {
-        production {
-            resValue "string", "app_name", "News App"
-        }
-        development {
-            resValue "string", "app_name", "dev-News App"
-            applicationIdSuffix ".development"
-            versionNameSuffix "-dev"
+            resValue "string", "app_name", "News Post"
         }
     }
 }
