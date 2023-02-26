@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../../../../generated/l10n.dart';
+
 class SettingsPage extends StatefulWidget {
   @override
   _SettingsPageState createState() => _SettingsPageState();
@@ -13,6 +15,10 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
+
+    var code = Hive.box('settings').get('language');
+    var language = LanguageDefine.getLanguageByCode(code);
+
     return Scaffold(
       appBar: WidgetAppBar(),
       body: Container(
@@ -21,55 +27,11 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              'Interface',
-              style: TextStyle(
-                fontSize: 48.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Use dark mode',
-                        style: TextStyle(
-                          fontSize: 42.sp,
-                        ),
-                      ),
-                      Text(
-                        'Get that whiteness out',
-                        style: TextStyle(
-                          fontSize: 36.sp,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                ValueListenableBuilder(
-                  valueListenable: Hive.box('settings').listenable(),
-                  builder: (context, box, widget) {
-                    var isDarkMode = box.get('darkMode') ?? false;
-                    return Switch(
-                      value: isDarkMode,
-                      onChanged: (value) async {
-                        isDarkMode = value;
-                        await box.put('darkMode', isDarkMode);
-                      },
-                    );
-                  },
-                ),
-              ],
-            ),
             Row(
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    'Select language',
+                    S.of(context).selectLanguage,
                     style: TextStyle(
                       fontSize: 42.sp,
                     ),
@@ -84,7 +46,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       ),
                     );
                   },
-                  child: Text('English...'),
+                  child: Text('$language...'),
                 ),
               ],
             ),
@@ -104,10 +66,10 @@ class WidgetAppBar extends PreferredSize {
         var isDarkMode = box.get('darkMode') ?? false;
         return isDarkMode
             ? AppBar(
-                title: Text('Settings'),
+                title: Text(S.of(context).settings),
               )
             : AppBar(
-                title: Text('Settings'),
+                title: Text(S.of(context).settings),
               );
       },
     );

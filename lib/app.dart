@@ -13,6 +13,7 @@ class App extends StatelessWidget {
       valueListenable: Hive.box('settings').listenable(),
       builder: (context, box, widget) {
         var isDarkMode = box.get('darkMode') ?? false;
+        var language = box.get('language').split('_')[0];
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'News App',
@@ -23,6 +24,7 @@ class App extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate
           ],
           supportedLocales: S.delegate.supportedLocales,
+          locale: Locale(language),
           theme: ThemeData(
             brightness: isDarkMode ? Brightness.dark : Brightness.light,
           ),

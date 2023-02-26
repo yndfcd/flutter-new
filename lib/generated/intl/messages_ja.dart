@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a zh_CN locale. All the
+// This is a library that provides messages for a ja locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -17,11 +17,14 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'zh_CN';
+  String get localeName => 'ja';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
-    "appName" : MessageLookupByLibrary.simpleMessage("报摊"),
-    "key" : MessageLookupByLibrary.simpleMessage("Key")
+    "appName" : MessageLookupByLibrary.simpleMessage("新聞売店"),
+    "language" : MessageLookupByLibrary.simpleMessage("言語"),
+    "latestNews" : MessageLookupByLibrary.simpleMessage("最新ニュース"),
+    "selectLanguage" : MessageLookupByLibrary.simpleMessage("言語を選択してください"),
+    "settings" : MessageLookupByLibrary.simpleMessage("設定")
   };
 }

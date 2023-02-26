@@ -35,21 +35,51 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `News stand`
+  /// `Newsstand`
   String get appName {
     return Intl.message(
-      'News stand',
+      'Newsstand',
       name: 'appName',
       desc: '',
       args: [],
     );
   }
 
-  /// `Key`
-  String get key {
+  /// `Please select language`
+  String get selectLanguage {
     return Intl.message(
-      'Key',
-      name: 'key',
+      'Please select language',
+      name: 'selectLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Latest news`
+  String get latestNews {
+    return Intl.message(
+      'Latest news',
+      name: 'latestNews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message(
+      'Settings',
+      name: 'settings',
       desc: '',
       args: [],
     );
@@ -62,8 +92,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
-      Locale.fromSubtags(languageCode: 'en', countryCode: 'US'),
-      Locale.fromSubtags(languageCode: 'zh', countryCode: 'CN'),
+      Locale.fromSubtags(languageCode: 'ja'),
+      Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
 

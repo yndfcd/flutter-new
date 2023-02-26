@@ -21,9 +21,6 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
     on<LoadTopHeadlinesNewsEvent>(_onLoad);
   }
 
-  @override
-  TopHeadlinesNewsState get initialState => InitialTopHeadlinesNewsState();
-
   Stream<TopHeadlinesNewsState> mapEventToState(
     TopHeadlinesNewsEvent event,
   ) async* {

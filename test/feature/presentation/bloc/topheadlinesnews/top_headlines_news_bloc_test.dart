@@ -59,7 +59,7 @@ void main() {
     'make sure that initialState must be InitialTopHeadlinesNewsState',
     () async {
       // assert
-      expect(topHeadlinesNewsBloc.initialState, InitialTopHeadlinesNewsState());
+      expect(topHeadlinesNewsBloc.state, InitialTopHeadlinesNewsState());
     },
   );
 

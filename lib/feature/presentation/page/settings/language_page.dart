@@ -1,6 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../generated/l10n.dart';
+
+class LanguageDefine{
+  static final _languages = ['English', '简体中文', 'Bahasa Indonesia', 'Tiếng Việt', /*'اَلْعَرَبِيَّةُ',*/ 'हिंदी', 'แบบไทย', '日本語', '한국어' ];
+  static final _languageCode = ['en_US', 'zh_CN', 'id_IN', 'vi_VN', /*'ar_SA',*/ 'hi_IN', 'th_TH', 'ja_JP', 'ko_KR'];
+
+  static String getLanguageCode(String lan){
+    return _languageCode[_languages.indexOf(lan)];
+  }
+
+  static String getLanguageByCode(String code){
+    var index = _languageCode.indexWhere((e) => e.startsWith(code));
+    if(index == -1) {
+      index = 0;
+    }
+    return _languages[index];
+  }
+
+  static List<String> getLanguages(){
+    return _languages;
+  }
+
+}
 
 class LanguagePage extends StatefulWidget {
   @override
@@ -8,7 +33,6 @@ class LanguagePage extends StatefulWidget {
 }
 
 class _LanguagePageState extends State<LanguagePage> {
-  final _languages = ['English', '简体中文', 'Bahasa Indonesia', 'Tiếng Việt', 'اَلْعَرَبِيَّةُ', 'हिंदी', 'แบบไทย', '日本語', '한국어' ];
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context);
@@ -18,19 +42,35 @@ class _LanguagePageState extends State<LanguagePage> {
           width: double.infinity,
           padding: EdgeInsets.all(48.w),
           child: ListView(
-            children: _buildLanguageList(),
+            children: ListTile.divideTiles(
+                context: context,
+                tiles:_buildLanguageList()
+            ),
           )
       ),
     );
   }
 
   List<Widget> _buildLanguageList(){
-    return _languages.map((e) =>
-        Container(
-            alignment: Alignment.center,
-            child: Text(e)
+    var language = Hive.box('settings').get('language');
+    return LanguageDefine.getLanguages().map((e) =>
+        ListTile(
+          title: Container(
+              padding: EdgeInsets.symmetric(vertical: 24.h),
+              alignment: Alignment.center,
+              child: GestureDetector(
+                onTap: () async {
+                  var code = LanguageDefine.getLanguageCode(e);
+                  await Hive.box('settings').put('language', code);
+                },
+                child: Text(e,
+                  style: TextStyle(
+                    color: e == LanguageDefine.getLanguageByCode(language) ? Colors.blue : Colors.black
+                  ),
+                ),
+              ),
+          ),
         )
-
     ).toList();
   }
 }
@@ -44,10 +84,10 @@ class WidgetAppBar extends PreferredSize {
         var isDarkMode = box.get('darkMode') ?? false;
         return isDarkMode
             ? AppBar(
-          title: Text('Select language'),
+          title: Text(S.of(context).selectLanguage),
         )
             : AppBar(
-          title: Text('Select language'),
+          title: Text(S.of(context).selectLanguage),
         );
       },
     );

@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
   Completer completerRefresh;
   var indexCategorySelected = 0;
   var page = 1;
-  var language = Platform.localeName.toLowerCase();
+  var language = Hive.box('settings').get('language');
   ScrollController loadMoreController;
   @override
   void initState() {
@@ -99,18 +99,22 @@ class _HomePageState extends State<HomePage> {
           child: ValueListenableBuilder(
             valueListenable: Hive.box('settings').listenable(),
             builder: (context, box, widget) {
-              var isDarkMode = box.get('darkMode') ?? false;
+              var language = box.get('language');
+              page = 1;
+              topHeadlinesNewsBloc.add(
+                LoadTopHeadlinesNewsEvent(page: page, language: language),
+              );
               return Stack(
                 children: [
                   Container(
                     width: double.infinity,
                     height: double.infinity,
-                    color: isDarkMode ? null : Color(0xFFEFF5F5),
+                    color: Color(0xFFEFF5F5),
                   ),
                   SafeArea(
                     child: Container(
                       width: double.infinity,
-                      color: isDarkMode ? null : Color(0xFFEFF5F5),
+                      color: Color(0xFFEFF5F5),
                       padding: EdgeInsets.symmetric(
                         vertical: 24.h,
                       ),
@@ -386,7 +390,7 @@ class _HomePageState extends State<HomePage> {
                       vertical: 14.w,
                     ),
                     child: Text(
-                      'Latest News',
+                      S.of(context).latestNews,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 28.sp,

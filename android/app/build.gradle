@@ -51,7 +51,7 @@ android {
         release {
             keyAlias 'yndfcd'
             keyPassword '123456'
-            storeFile file('/Users/dengfeng.yan/Desktop/work/dev-tools/yndfcd.keystore')
+            storeFile file('/Users/yandengfeng/Desktop/MyWork/devtools/yndfcd.keystore')
             storePassword '123456'
         }
     }

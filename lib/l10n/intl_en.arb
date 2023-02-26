@@ -1,4 +1,7 @@
 {
-  "appName": "News stand",
-  "key": "Key"
+  "appName": "Newsstand",
+  "selectLanguage": "Please select language",
+  "latestNews": "Latest news",
+  "language": "Language",
+  "settings": "Settings"
 }
