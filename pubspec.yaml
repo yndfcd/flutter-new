@@ -1,6 +1,6 @@
-name: flutter_news_app
+name: Neos Post
 description: Flutter News App with NewsApi
-version: 2.0.0+2
+version: 1.0.1+4
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
