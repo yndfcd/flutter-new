@@ -1,4 +1,4 @@
-import 'package:data_connection_checker/data_connection_checker.dart';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_news_app/config/constant_config.dart';
 import 'package:flutter_news_app/core/network/network_info.dart';
@@ -37,7 +37,7 @@ Future<void> init() async {
   /**
    * ! Core
    */
-  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
+  sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl());
 
   /**
    * ! External
@@ -49,5 +49,4 @@ Future<void> init() async {
     return dio;
   });
   sl.registerLazySingleton(() => ConstantConfig());
-  sl.registerLazySingleton(() => DataConnectionChecker());
 }
