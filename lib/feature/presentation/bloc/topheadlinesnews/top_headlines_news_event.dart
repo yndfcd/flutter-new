@@ -9,7 +9,7 @@ abstract class TopHeadlinesNewsEvent extends Equatable {
 class LoadTopHeadlinesNewsEvent extends TopHeadlinesNewsEvent {
   final int page;
   final String language;
-  final List<ItemArticleTopHeadlinesNewsResponseModel> existingData;
+  List<ItemArticleTopHeadlinesNewsResponseModel> existingData = <ItemArticleTopHeadlinesNewsResponseModel>[];
 
   LoadTopHeadlinesNewsEvent({@required this.page, @required this.language, this.existingData});
 

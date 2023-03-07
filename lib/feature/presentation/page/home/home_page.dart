@@ -180,7 +180,9 @@ class _HomePageState extends State<HomePage> {
       builder: (context, state) {
         var listArticles = <ItemArticleTopHeadlinesNewsResponseModel>[];
         if (state is LoadedTopHeadlinesNewsState) {
-          listArticles.addAll(state.listArticles);
+          if(state.listArticles != null) {
+            listArticles.addAll(state.listArticles);
+          }
         } else if (isLoadingCenterIOS) {
           return Center(
             child: CupertinoActivityIndicator(),
