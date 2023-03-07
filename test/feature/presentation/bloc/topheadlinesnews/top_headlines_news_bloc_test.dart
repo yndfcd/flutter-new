@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter_news_app/core/error/failure.dart';
-import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
-import 'package:flutter_news_app/feature/domain/usecase/gettopheadlinesnews/get_top_headlines_news.dart';
-import 'package:flutter_news_app/feature/domain/usecase/searchtopheadlinesnews/search_top_headlines_news.dart';
-import 'package:flutter_news_app/feature/presentation/bloc/topheadlinesnews/bloc.dart';
+import 'package:neos_post/core/error/failure.dart';
+import 'package:neos_post/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
+import 'package:neos_post/feature/domain/usecase/gettopheadlinesnews/get_top_headlines_news.dart';
+import 'package:neos_post/feature/domain/usecase/searchtopheadlinesnews/search_top_headlines_news.dart';
+import 'package:neos_post/feature/presentation/bloc/topheadlinesnews/bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

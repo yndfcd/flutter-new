@@ -1,4 +1,4 @@
-import 'package:flutter_news_app/feature/presentation/bloc/topheadlinesnews/bloc.dart';
+import 'package:neos_post/feature/presentation/bloc/topheadlinesnews/bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

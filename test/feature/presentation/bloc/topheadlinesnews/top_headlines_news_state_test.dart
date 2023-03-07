@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
-import 'package:flutter_news_app/feature/presentation/bloc/topheadlinesnews/bloc.dart';
+import 'package:neos_post/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
+import 'package:neos_post/feature/presentation/bloc/topheadlinesnews/bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../fixture/fixture_reader.dart';

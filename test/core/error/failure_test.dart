@@ -1,4 +1,4 @@
-import 'package:flutter_news_app/core/error/failure.dart';
+import 'package:neos_post/core/error/failure.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

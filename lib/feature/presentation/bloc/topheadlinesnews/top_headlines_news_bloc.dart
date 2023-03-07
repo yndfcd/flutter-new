@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:flutter_news_app/core/error/failure.dart';
-import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
-import 'package:flutter_news_app/feature/domain/usecase/gettopheadlinesnews/get_top_headlines_news.dart';
-import 'package:flutter_news_app/feature/domain/usecase/searchtopheadlinesnews/search_top_headlines_news.dart';
+import 'package:neos_post/core/error/failure.dart';
+import 'package:neos_post/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
+import 'package:neos_post/feature/domain/usecase/gettopheadlinesnews/get_top_headlines_news.dart';
+import 'package:neos_post/feature/domain/usecase/searchtopheadlinesnews/search_top_headlines_news.dart';
 import 'package:meta/meta.dart';
 
 import './bloc.dart';
@@ -42,7 +42,8 @@ class TopHeadlinesNewsBloc extends Bloc<TopHeadlinesNewsEvent, TopHeadlinesNewsS
     var response = await getTopHeadlinesNews(ParamsGetTopHeadlinesNews(page: event.page, language: event.language));
     response.fold((failure) {
         if (failure is ServerFailure) {
-          emit(FailureTopHeadlinesNewsState(errorMessage: failure.errorMessage));
+          // emit(FailureTopHeadlinesNewsState(errorMessage: failure.errorMessage));
+          emit(LoadedTopHeadlinesNewsState(listArticles: event.existingData, page: event.page, hasMore: true));
         } else if (failure is ConnectionFailure) {
           emit(FailureTopHeadlinesNewsState(errorMessage: failure.errorMessage));
         }

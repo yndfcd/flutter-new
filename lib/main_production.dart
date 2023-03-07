@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/app.dart';
-import 'package:flutter_news_app/config/base_url_config.dart';
-import 'package:flutter_news_app/config/flavor_config.dart';
-import 'package:flutter_news_app/injection_container.dart' as di;
+import 'package:neos_post/app.dart';
+import 'package:neos_post/config/base_url_config.dart';
+import 'package:neos_post/config/flavor_config.dart';
+import 'package:neos_post/injection_container.dart' as di;
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {

@@ -4,19 +4,17 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_news_app/feature/data/model/categorynews/category_news_model.dart';
-import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
-import 'package:flutter_news_app/feature/presentation/bloc/topheadlinesnews/bloc.dart';
-import 'package:flutter_news_app/feature/presentation/page/settings/settings_page.dart';
-import 'package:flutter_news_app/feature/presentation/widget/widget_failure_message.dart';
-import 'package:flutter_news_app/feature/presentation/widget/widget_item_news.dart';
-import 'package:flutter_news_app/injection_container.dart';
+import 'package:neos_post/feature/data/model/categorynews/category_news_model.dart';
+import 'package:neos_post/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
+import 'package:neos_post/feature/presentation/bloc/topheadlinesnews/bloc.dart';
+import 'package:neos_post/feature/presentation/page/settings/settings_page.dart';
+import 'package:neos_post/feature/presentation/widget/widget_failure_message.dart';
+import 'package:neos_post/feature/presentation/widget/widget_item_news.dart';
+import 'package:neos_post/injection_container.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../../../generated/l10n.dart';
 import 'detail_page.dart';
 
@@ -196,6 +194,7 @@ class _HomePageState extends State<HomePage> {
                 physics: BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics(),
                 ),
+                controller: loadMoreController,
                 slivers: <Widget>[
                   CupertinoSliverRefreshControl(
                     onRefresh: () {

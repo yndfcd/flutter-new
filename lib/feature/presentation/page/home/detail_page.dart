@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
+import 'package:neos_post/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:flutter_screenutil/size_extension.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../../generated/l10n.dart';
 
 class DetailPage extends StatelessWidget{
   ItemArticleTopHeadlinesNewsResponseModel itemArticle;
@@ -60,7 +62,14 @@ class DetailPage extends StatelessWidget{
                       ),
                       onTap: () => launch(itemArticle.url)
                   ),
-
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: 48.h),
+                      child: Text(S.of(context).disclaimer,
+                        style: TextStyle(
+                          fontSize: 24.sp
+                        ),
+                      )
+                  )
                 ],
               )
           )

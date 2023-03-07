@@ -3,5 +3,6 @@
   "selectLanguage": "请选择语言",
   "latestNews": "最新消息",
   "language": "语言",
-  "settings": "设置"
+  "settings": "设置",
+  "disclaimer": "本内容由AI产生，并无人工干预，请以原文内容为准。"
 }

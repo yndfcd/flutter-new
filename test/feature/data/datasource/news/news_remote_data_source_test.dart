@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_news_app/config/base_url_config.dart';
-import 'package:flutter_news_app/config/constant_config.dart';
-import 'package:flutter_news_app/feature/data/datasource/news/news_remote_data_source.dart';
-import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
+import 'package:neos_post/config/base_url_config.dart';
+import 'package:neos_post/config/constant_config.dart';
+import 'package:neos_post/feature/data/datasource/news/news_remote_data_source.dart';
+import 'package:neos_post/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:matcher/matcher.dart';
 import 'package:mockito/mockito.dart';

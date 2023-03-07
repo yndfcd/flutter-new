@@ -1,5 +1,5 @@
 
-import 'package:flutter_news_app/core/network/network_info.dart';
+import 'package:neos_post/core/network/network_info.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

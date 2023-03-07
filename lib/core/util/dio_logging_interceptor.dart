@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_news_app/config/flavor_config.dart';
+import 'package:neos_post/config/flavor_config.dart';
 
 class DioLoggingInterceptor extends InterceptorsWrapper {
   @override

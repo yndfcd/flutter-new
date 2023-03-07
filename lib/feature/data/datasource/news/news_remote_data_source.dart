@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_news_app/config/constant_config.dart';
-import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
+import 'package:neos_post/config/constant_config.dart';
+import 'package:neos_post/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 

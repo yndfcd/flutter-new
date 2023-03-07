@@ -22,6 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
     "appName" : MessageLookupByLibrary.simpleMessage("报摊"),
+    "disclaimer" : MessageLookupByLibrary.simpleMessage("本内容由AI产生，并无人工干预，请以原文内容为准。"),
     "language" : MessageLookupByLibrary.simpleMessage("语言"),
     "latestNews" : MessageLookupByLibrary.simpleMessage("最新消息"),
     "selectLanguage" : MessageLookupByLibrary.simpleMessage("请选择语言"),

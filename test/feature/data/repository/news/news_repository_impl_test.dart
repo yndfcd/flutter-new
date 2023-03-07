@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_news_app/core/error/failure.dart';
-import 'package:flutter_news_app/core/network/network_info.dart';
-import 'package:flutter_news_app/feature/data/datasource/news/news_remote_data_source.dart';
-import 'package:flutter_news_app/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
-import 'package:flutter_news_app/feature/data/repository/news/news_repository_impl.dart';
+import 'package:neos_post/core/error/failure.dart';
+import 'package:neos_post/core/network/network_info.dart';
+import 'package:neos_post/feature/data/datasource/news/news_remote_data_source.dart';
+import 'package:neos_post/feature/data/model/topheadlinesnews/top_headlines_news_response_model.dart';
+import 'package:neos_post/feature/data/repository/news/news_repository_impl.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
