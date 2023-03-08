@@ -6,5 +6,4 @@ abstract class NewsRepository {
 
   Future<Either<Failure, List<ItemArticleTopHeadlinesNewsResponseModel>>> getTopHeadlinesNews(int page, String language);
 
-  Future<Either<Failure, TopHeadlinesNewsResponseModel>> searchTopHeadlinesNews(String keyword);
 }

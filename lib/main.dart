@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:neos_post/app.dart';
-import 'package:neos_post/config/base_url_config.dart';
 import 'package:neos_post/config/flavor_config.dart';
 import 'package:neos_post/core/network/network_info.dart';
 import 'package:neos_post/injection_container.dart' as di;
@@ -22,7 +21,7 @@ void main() async {
   await Hive.box('settings').put('language', language);
   FlavorConfig(
     flavor: Flavor.DEVELOPMENT,
-    values: FlavorValues(baseUrl: BaseUrlConfig().baseUrlDevelopment),
+    values: FlavorValues(baseUrl:''),
   );
   await di.init();
   await sl<NetworkInfo>().check();

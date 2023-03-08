@@ -40,12 +40,33 @@ class DetailPage extends StatelessWidget{
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: CachedNetworkImage(imageUrl: itemArticle.url2image ?? ''),
+                    child: CachedNetworkImage(
+                      imageUrl: itemArticle.url2image,
+                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.asset(
+                            'assets/images/img_not_found.jpg',
+                            fit: BoxFit.fill,
+                          ),
+                        );
+                      },
+                      placeholder: (context, url) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.asset(
+                            'assets/images/img_placeholder.jpg',
+                            fit: BoxFit.fill,
+                          ),
+                        );
+                      },
+                    ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(itemArticle.author ?? 'News Post'),
+                      Text(itemArticle.author ?? 'Neo\'s Post'),
                       Text(strPublishedAt),
                     ],
                   ),
